@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 (async () => {
   try {
-    await conn.sync({ force: true });
+    await conn.sync({ force: false });
     console.log('Base de datos sincronizada');
     app.listen(port, () => console.log(`Servidor corriendo en http://localhost:${port}`));
   } catch (error) {

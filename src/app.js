@@ -2,13 +2,20 @@ const express = require("express");
 const mainRouter = require("./routes/index.js");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const cors = require('cors');
+const cors = require("cors");
 require("./db.js");
 
 const app = express();
+app.use(
+	cors({
+		origin: "http://localhost:5173",
+		methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+		credentials: true,
+	})
+);
 
 app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "http://localhost:5173"); 
+	res.header("Access-Control-Allow-Origin", "http://localhost:5173");
 	res.header("Access-Control-Allow-Credentials", "true");
 	res.header(
 		"Access-Control-Allow-Headers",
@@ -18,7 +25,6 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(morgan("dev"));
